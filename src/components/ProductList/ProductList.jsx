@@ -1,14 +1,8 @@
-import { useState, useEffect } from 'react';
-import { getProducts } from '../../api/api';
+import { Link } from 'react-router-dom';
 import classes from './productList.module.scss';
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getProducts().then((products) => setProducts(products));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const ProductList = (props) => {
+  const { products } = props;
 
   return (
     <ul className={classes.productList}>
@@ -21,6 +15,7 @@ const ProductList = () => {
           <p>Objectif de l’utilité de l’épargne : {product.goal}</p>
           <p>Catégorie : {product.category}</p>
           <p>Nature du placement : {product.investmentType}</p>
+          <Link to={`/nos-produits/${product.id}`}>Voir la fiche</Link>
         </li>
       ))}
     </ul>
