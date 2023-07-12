@@ -4,6 +4,7 @@ import { getProducts } from './api/api';
 import ProductList from './components/ProductList/ProductList';
 import './App.css';
 import Product from './components/Product/Product';
+import { UserProvider } from './context/UserContext';
 
 const products = await getProducts();
 
@@ -27,18 +28,19 @@ const App = () => {
           </li>
         </ul>
       </nav>
-
-      <Routes>
-        <Route path="/" element={<ProductList products={products} />} />
-        <Route
-          path="/nos-produits"
-          element={<ProductList products={products} />}
-        />
-        <Route
-          path="/nos-produits/:productId"
-          element={<Product products={products} />}
-        />
-      </Routes>
+      <UserProvider>
+        <Routes>
+          <Route path="/" element={<ProductList products={products} />} />
+          <Route
+            path="/nos-produits"
+            element={<ProductList products={products} />}
+          />
+          <Route
+            path="/nos-produits/:id"
+            element={<Product products={products} />}
+          />
+        </Routes>
+      </UserProvider>
     </Router>
   );
 };
