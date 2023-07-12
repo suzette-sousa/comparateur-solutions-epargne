@@ -9,13 +9,11 @@ const Header = () => {
       <header>
         <h1>Comparateur de solutions d’épargne</h1>
       </header>
+
       <nav>
         <ul>
           <li>
             <Link to="/">Accueil</Link>
-          </li>
-          <li>
-            <Link to="/nos-produits">Produits</Link>
           </li>
           <li>
             <Link to="/panier">Panier {cartItems.length}</Link>
