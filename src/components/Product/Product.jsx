@@ -6,7 +6,7 @@ import { CartContext } from '../../context/CartContext';
 
 const Product = () => {
   const { userName } = useContext(UserContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, isItemInCart, removeFromCart } = useContext(CartContext);
 
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -27,7 +27,16 @@ const Product = () => {
         {userName}, découvrez les détails de notre produit : {product?.name}
       </h2>
       <p>{product?.descr}</p>
-      <button onClick={() => addToCart(product)}>Ajouter au panier</button>
+      {!isItemInCart(product.id) ? (
+        <button onClick={() => addToCart(product)}>Ajouter au panier</button>
+      ) : (
+        <>
+          Déjà ajouté
+          <button onClick={() => removeFromCart(product.id)}>
+            Retirer du panier
+          </button>
+        </>
+      )}
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import classes from './productList.module.scss';
 import { UserContext } from '../../context/UserContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CartContext } from '../../context/CartContext';
 
 const ProductList = (props) => {
   const { products } = props;
 
   const { userName } = useContext(UserContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, isItemInCart } = useContext(CartContext);
 
   return (
     <>
@@ -26,9 +26,13 @@ const ProductList = (props) => {
             <p>Catégorie : {product.category}</p>
             <p>Nature du placement : {product.investmentType}</p>
             <Link to={`/nos-produits/${product.id}`}>Voir la fiche</Link>
-            <button onClick={() => addToCart(product)}>
-              Ajouter au panier
-            </button>
+            {!isItemInCart(product.id) ? (
+              <button onClick={() => addToCart(product)}>
+                Ajouter au panier
+              </button>
+            ) : (
+              'déjà ajouté'
+            )}
           </li>
         ))}
       </ul>
