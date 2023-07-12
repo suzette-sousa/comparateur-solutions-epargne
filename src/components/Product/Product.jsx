@@ -2,9 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { getProduct } from '../../api/api';
 import { useParams } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 const Product = () => {
   const { userName } = useContext(UserContext);
+  const { addToCart } = useContext(CartContext);
+
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -24,7 +27,7 @@ const Product = () => {
         {userName}, découvrez les détails de notre produit : {product?.name}
       </h2>
       <p>{product?.descr}</p>
-      {/*       <button onClick={() => addToCart(product)}>Ajouter au panier</button> */}
+      <button onClick={() => addToCart(product)}>Ajouter au panier</button>
     </div>
   );
 };
