@@ -73,12 +73,22 @@ const products = [
   },
 ];
 
-function getProducts() {
+const getProducts = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(products);
     }, 1000);
   });
-}
+};
 
-export { getProducts };
+const getProduct = (id) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const filteredProduct = products.find((p) => p.id === parseInt(id));
+
+      resolve(filteredProduct);
+    }, 1000);
+  });
+};
+
+export { getProducts, getProduct };

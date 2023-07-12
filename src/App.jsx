@@ -36,7 +36,7 @@ const App = () => {
             element={<ProductList products={products} />}
           />
           <Route
-            path="/nos-produits/:id"
+            path="/nos-produits/:productId"
             element={<Product products={products} />}
           />
         </Routes>

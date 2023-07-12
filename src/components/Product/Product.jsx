@@ -1,23 +1,30 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { getProduct } from '../../api/api';
+import { useParams } from 'react-router-dom';
 
-const Product = (props) => {
-  const { products, productId } = props;
-
-  const product = products.find((product) => product.id === 2);
+const Product = () => {
   const { userName } = useContext(UserContext);
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    getProduct(productId).then((productData) => {
+      setProduct(productData);
+    });
+  }, [productId]);
 
   if (!product) {
-    return <p>Produit non trouvé.</p>;
+    return <p>Chargement des détails du produit...</p>;
   }
 
   return (
     <div>
       <h2>
-        {userName}, les détails de notre produit : {product.name}
+        {userName}, découvrez les détails de notre produit : {product?.name}
       </h2>
-      <p>{product.descr}</p>
-      <button onClick={() => addToCart(product)}>Ajouter au panier</button>
+      <p>{product?.descr}</p>
+      {/*       <button onClick={() => addToCart(product)}>Ajouter au panier</button> */}
     </div>
   );
 };
