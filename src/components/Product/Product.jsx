@@ -11,7 +11,7 @@ import ProductAddedIcon from '../ProductAddedIcon/ProductAddedIcon';
 
 const Product = () => {
   const { userName } = useContext(UserContext);
-  const { addToCart, isItemInCart, removeFromCart } = useContext(CartContext);
+  const { addToCart, isItemInCart } = useContext(CartContext);
 
   const { productId } = useParams();
   const [product, setProduct] = useState(null);

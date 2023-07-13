@@ -54,7 +54,7 @@ const SortBy = (props) => {
               checked={sortBy === 'interestRateAsc'}
               onChange={() => handleSortByChange('interestRateAsc')}
             />
-            Taux d'intérêt - Croissant
+            Taux d’intérêt - Croissant
           </label>
           <label className={sortBy === 'interestRateDesc' ? 'selected' : ''}>
             <input
@@ -63,7 +63,7 @@ const SortBy = (props) => {
               checked={sortBy === 'interestRateDesc'}
               onChange={() => handleSortByChange('interestRateDesc')}
             />
-            Taux d'intérêt - Décroissant
+            Taux d’intérêt - Décroissant
           </label>
           <label className={sortBy === 'nameAsc' ? 'selected' : ''}>
             <input

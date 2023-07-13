@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './ContactModal.scss';
 
 const ContactModal = ({ show, handleClose, productName }) => {
@@ -33,6 +33,7 @@ const ContactModal = ({ show, handleClose, productName }) => {
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const ContactModal = ({ show, handleClose, productName }) => {
       <div ref={modalRef} className="modal__content">
         <div className="modal__header">
           <h3>
-            Contactez-nous pour plus d'informations sur le produit {productName}
+            Contactez-nous pour plus d’informations sur le produit {productName}
           </h3>
           <button className="modal__close-btn" onClick={handleClose}>
             X
