@@ -5,6 +5,7 @@ Consigne de l’exercice
 Vous devez concevoir un petit outil de comparateur de solutions d’épargne avec un certain nombre
 de produits bancaires retournés par une API.
 Technologie attendue : JS + React
+
 Notes :
 
 - Pas besoin de base de données, l’API peut renvoyer des données fixes et fictives
@@ -19,7 +20,9 @@ Caractéristiques attendues d’un produit bancaire :
 - L’objectif de l’utilité de l’épargne
 - Une catégorie :
 - La nature du placement : court terme, long terme
-  Les fonctionnalités attendues sont :
+
+Les fonctionnalités attendues sont :
+
 - D’afficher une page de comparatif d’offres, ergonomique et responsive, avec des filtres et
   des tris pratiques
   o Chaque produit peut être sélectionné, ce qui redirige vers la fiche dédiée du produit
