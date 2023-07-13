@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import './Header.scss';
-import logo from '/public/ca-Nord_Est-h-RVB.svg';
+import logo from '../../assets/ca-Nord_Est-h-RVB.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartContent from '../Cart/Cart';
