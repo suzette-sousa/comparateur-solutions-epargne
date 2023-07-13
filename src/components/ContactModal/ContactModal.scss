@@ -17,6 +17,15 @@
     visibility: visible;
   }
 
+  &__close-btn {
+    background-color: transparent;
+    color: #333;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
   &__content {
     max-width: 400px;
     background-color: #fff;
@@ -27,21 +36,9 @@
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     margin-bottom: 10px;
-  }
-
-  &__close-btn {
-    border: none;
-    background-color: transparent;
-    color: #333;
-    font-size: 18px;
-    cursor: pointer;
-
-    &:hover {
-      color: #ff0000;
-    }
   }
 
   &__body {
@@ -56,16 +53,8 @@
     resize: none;
   }
 
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   &__btn {
-    padding: 8px 16px;
     margin-left: 10px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
 
     &--cancel {
@@ -73,15 +62,6 @@
 
       &:hover {
         background-color: #999;
-      }
-    }
-
-    &--send {
-      background-color: #007bff;
-      color: #fff;
-
-      &:hover {
-        background-color: #0056b3;
       }
     }
   }

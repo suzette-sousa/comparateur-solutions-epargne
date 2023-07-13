@@ -4,6 +4,10 @@ import { getProduct } from '../../api/api';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import ContactModal from '../ContactModal/ContactModal';
+import './Product.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import ProductAddedIcon from '../ProductAddedIcon/ProductAddedIcon';
 
 const Product = () => {
   const { userName } = useContext(UserContext);
@@ -32,30 +36,45 @@ const Product = () => {
   }
 
   return (
-    <div>
-      <h2>
-        {userName}, découvrez les détails de notre produit : {product?.name}
-      </h2>
+    <>
+      <h1>
+        <strong>{product?.name}</strong>
+      </h1>
 
-      <p>{product?.descr}</p>
+      <h2> {userName}, découvrez les détails de notre produit :</h2>
 
-      {!isItemInCart(product.id) ? (
-        <button onClick={() => addToCart(product)}>Ajouter au panier</button>
-      ) : (
-        <>
-          Déjà ajouté
-          <button onClick={() => removeFromCart(product.id)}>
-            Retirer du panier
+      <p className="product-details">{product?.descr}</p>
+
+      <div className="product__btn-container">
+        {!isItemInCart(product.id) ? (
+          <button onClick={() => addToCart(product)}>
+            <FontAwesomeIcon icon={faShoppingCart} /> Ajouter au panier
           </button>
-        </>
-      )}
-      <button onClick={handleShowModal}>Contactez-nous</button>
-      <ContactModal
-        show={showModal}
-        handleClose={handleCloseModal}
-        productName={product.name}
-      />
-    </div>
+        ) : (
+          <>
+            <button disabled>
+              <ProductAddedIcon /> Déjà ajouté au panier
+            </button>
+          </>
+        )}
+
+        <button
+          onClick={handleShowModal}
+          className="product__contact-btn"
+          aria-label="Contactez-nous"
+        >
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            className="product__contact-icon"
+          />
+        </button>
+        <ContactModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          productName={product.name}
+        />
+      </div>
+    </>
   );
 };
 

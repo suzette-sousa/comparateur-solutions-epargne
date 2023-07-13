@@ -1,16 +1,92 @@
-const SortBySelector = (props) => {
+import { useEffect, useRef, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import './SortBy.scss';
+
+const SortBy = (props) => {
   const { sortBy, onSortByChange } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  const handleSortByChange = (value) => {
+    onSortByChange(value);
+    setIsOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div>
-      <label htmlFor="sortBy">Trier par : </label>
-      <select id="sortBy" value={sortBy} onChange={onSortByChange}>
-        <option value="">Aucun</option>
-        <option value="interestRate">Taux d’intérêt</option>
-        <option value="name">Nom</option>
-      </select>
+    <div
+      className={`sort-by-selector ${isOpen ? 'open' : ''}`}
+      ref={containerRef}
+    >
+      <div className="sortby-header" onClick={toggleDropdown}>
+        <span>Trier par</span>
+        <FontAwesomeIcon
+          icon={isOpen ? faChevronUp : faChevronDown}
+          className="sortby-toggle-icon"
+        />
+      </div>
+      {isOpen && (
+        <div className="sortby-options">
+          <label className={sortBy === 'interestRateAsc' ? 'selected' : ''}>
+            <input
+              type="radio"
+              value="interestRate"
+              checked={sortBy === 'interestRateAsc'}
+              onChange={() => handleSortByChange('interestRateAsc')}
+            />
+            Taux d'intérêt - Croissant
+          </label>
+          <label className={sortBy === 'interestRateDesc' ? 'selected' : ''}>
+            <input
+              type="radio"
+              value="interestRate"
+              checked={sortBy === 'interestRateDesc'}
+              onChange={() => handleSortByChange('interestRateDesc')}
+            />
+            Taux d'intérêt - Décroissant
+          </label>
+          <label className={sortBy === 'nameAsc' ? 'selected' : ''}>
+            <input
+              type="radio"
+              value="nameAsc"
+              checked={sortBy === 'nameAsc'}
+              onChange={() => handleSortByChange('nameAsc')}
+            />
+            Nom - A -{'>'} Z
+          </label>
+          <label className={sortBy === 'nameDesc' ? 'selected' : ''}>
+            <input
+              type="radio"
+              value="nameDesc"
+              checked={sortBy === 'nameDesc'}
+              onChange={() => handleSortByChange('nameDesc')}
+            />
+            Nom - Z -{'>'} A
+          </label>
+        </div>
+      )}
     </div>
   );
 };
 
-export default SortBySelector;
+export default SortBy;

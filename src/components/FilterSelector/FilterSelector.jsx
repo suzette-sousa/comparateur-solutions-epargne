@@ -1,14 +1,35 @@
+import './FilterSelector.scss';
+
 const FilterSelector = (props) => {
   const { filter, onFilterChange } = props;
 
+  const handleFilterChange = (value) => {
+    onFilterChange(value);
+  };
+
   return (
-    <div>
-      <label htmlFor="filter">Filtrer par : </label>
-      <select id="filter" value={filter} onChange={onFilterChange}>
-        <option value="">Tous</option>
-        <option value="épargne">Épargne</option>
-        <option value="assurance">Assurance</option>
-      </select>
+    <div className="filter-selector">
+      <label>Filtrer par :</label>
+      <div className="filter-buttons">
+        <button
+          className={filter === '' ? 'active' : ''}
+          onClick={() => handleFilterChange('')}
+        >
+          Tous
+        </button>
+        <button
+          className={filter === 'épargne' ? 'active' : ''}
+          onClick={() => handleFilterChange('épargne')}
+        >
+          Épargne
+        </button>
+        <button
+          className={filter === 'assurance' ? 'active' : ''}
+          onClick={() => handleFilterChange('assurance')}
+        >
+          Assurance
+        </button>
+      </div>
     </div>
   );
 };

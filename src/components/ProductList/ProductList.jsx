@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
-import classes from './productList.module.scss';
+import './ProductList.scss';
 import { UserContext } from '../../context/UserContext';
 import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import FilterSelector from '../FilterSelector/FilterSelector';
 import SortBySelector from '../SortBy/SortBy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faInfoCircle,
+  faShoppingCart,
+} from '@fortawesome/free-solid-svg-icons';
+import ProductAddedIcon from '../ProductAddedIcon/ProductAddedIcon';
 
 const ProductList = (props) => {
   const { products } = props;
@@ -15,12 +21,12 @@ const ProductList = (props) => {
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState('');
 
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
+  const handleFilterChange = (value) => {
+    setFilter(value);
   };
 
-  const handleSortByChange = (event) => {
-    setSortBy(event.target.value);
+  const handleSortByChange = (value) => {
+    setSortBy(value);
   };
 
   let filteredProducts = products;
@@ -32,10 +38,14 @@ const ProductList = (props) => {
 
   if (sortBy) {
     filteredProducts.sort((a, b) => {
-      if (sortBy === 'interestRate') {
+      if (sortBy === 'interestRateAsc') {
         return a.interestRate - b.interestRate;
-      } else if (sortBy === 'name') {
+      } else if (sortBy === 'interestRateDesc') {
+        return b.interestRate - a.interestRate;
+      } else if (sortBy === 'nameAsc') {
         return a.name.localeCompare(b.name);
+      } else if (sortBy === 'nameDesc') {
+        return b.name.localeCompare(a.name);
       }
       return 0;
     });
@@ -43,36 +53,99 @@ const ProductList = (props) => {
 
   return (
     <>
-      {userName}, comparez nos différents produits bancaires :
-      <div>
+      <h1>{userName}, comparez nos différents produits bancaires</h1>
+
+      <div className="productFilters">
         <FilterSelector filter={filter} onFilterChange={handleFilterChange} />
-      </div>
-      <div>
         <SortBySelector sortBy={sortBy} onSortByChange={handleSortByChange} />
       </div>
-      <ul className={classes.productList}>
+
+      <div className="productList">
         {filteredProducts.map((product) => (
-          <li className={classes.productList_item} key={product.id}>
-            <h3>{product.name}</h3>
-            <p>Taux d’intérêt : {product.interestRate}%</p>
-            <p>Versement initial : {product.initialDeposit} €</p>
-            <p>
-              Plafond : {product.ceiling ? `${product.ceiling} €` : 'Aucun'}
+          <div className="product-card" key={product.id}>
+            <h2 className="product-card__title">
+              <Link to={`/nos-produits/${product.id}`}>{product.name}</Link>
+            </h2>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">Taux d’intérêt :</span>
+              <span className="product-card__line-value">
+                {product.interestRate}%
+              </span>
             </p>
-            <p>Objectif de l’utilité de l’épargne : {product.goal}</p>
-            <p>Catégorie : {product.category}</p>
-            <p>Nature du placement : {product.investmentType}</p>
-            <Link to={`/nos-produits/${product.id}`}>Voir la fiche</Link>
-            {!isItemInCart(product.id) ? (
-              <button onClick={() => addToCart(product)}>
-                Ajouter au panier
-              </button>
-            ) : (
-              'déjà ajouté'
-            )}
-          </li>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">
+                Versement initial :
+              </span>
+              <span className="product-card__line-value">
+                {product.initialDeposit} €
+              </span>
+            </p>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">Plafond :</span>
+              <span className="product-card__line-value">
+                {product.ceiling ? `${product.ceiling} €` : 'Aucun'}
+              </span>
+            </p>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">Catégorie :</span>
+              <span className="product-card__line-value">
+                {product.category}
+              </span>
+            </p>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">
+                Nature du placement :
+              </span>
+              <span className="product-card__line-value">
+                {product.investmentType}
+              </span>
+            </p>
+
+            <p className="product-card__line">
+              <span className="product-card__line-label">
+                Objectif de l’utilité de l’épargne :
+              </span>
+              <span className="product-card__line-value">{product.goal}</span>
+            </p>
+
+            <div className="product-card__button-container">
+              <Link
+                to={`/nos-produits/${product.id}`}
+                className="product-card__link"
+              >
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  className="product-card__link-icon"
+                />
+                Voir la fiche
+              </Link>
+              {!isItemInCart(product.id) ? (
+                <button
+                  className="product-card__button"
+                  onClick={() => addToCart(product)}
+                >
+                  <span className="product-card__button-icon">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </span>
+                  Ajouter au panier
+                </button>
+              ) : (
+                <button className="product-card__button" disabled>
+                  <span className="product-card__button-icon">
+                    <ProductAddedIcon />
+                  </span>
+                  Déjà ajouté au panier
+                </button>
+              )}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   );
 };

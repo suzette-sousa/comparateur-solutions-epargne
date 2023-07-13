@@ -1,0 +1,28 @@
+.filter-selector {
+  label {
+    margin-right: 10px;
+  }
+
+  .filter-buttons {
+    display: inline-flex;
+    align-items: center;
+
+    button {
+      margin-right: 8px;
+      background-color: transparent;
+      border: 2px solid #ccc;
+      border-radius: 3rem;
+      transition: background-color 0.3s ease;
+      color: #333;
+
+      &:hover {
+        background-color: #f2f2f2;
+      }
+
+      &.active {
+        background-color: #fff;
+        border: 3px solid var(--color-brand);
+      }
+    }
+  }
+}
