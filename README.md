@@ -25,12 +25,12 @@ Les fonctionnalités attendues sont :
 
 - D’afficher une page de comparatif d’offres, ergonomique et responsive, avec des filtres et
   des tris pratiques
-  o Chaque produit peut être sélectionné, ce qui redirige vers la fiche dédiée du produit
-  (ex : /nos-produits/livret-a)
-  o Chaque produit peut être directement ajouté au panier
+  - Chaque produit peut être sélectionné, ce qui redirige vers la fiche dédiée du produit
+    (ex : /nos-produits/livret-a)
+  - Chaque produit peut être directement ajouté au panier
 - Sur la fiche produit, il est possible :
-  o D’afficher une modal de contact permettant d’envoyer un message de demande
-  d’infos
-  o D’ajouter un produit au panier
-  o Si le produit est déjà dans le panier, cela doit apparaitre sur la page.
+  - D’afficher une modal de contact permettant d’envoyer un message de demande
+    d’infos
+  - D’ajouter un produit au panier
+  - Si le produit est déjà dans le panier, cela doit apparaitre sur la page.
 - Sur chaque page, le nom de l’utilisateur sera affiché dynamiquement
